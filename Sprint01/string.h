@@ -28,11 +28,6 @@ class String{
 
         ~String();
 
-    private:
-
-        char* data;
-        int length;
-
 };
 
 
