@@ -24,6 +24,8 @@ TEST_CASE("String class", "[string]"){
     s[8] = DSString("aa");
     s[9] = DSString("testString");
 
+
+
     SECTION("Freebee"){
         REQUIRE(true);
     }
@@ -83,18 +85,46 @@ TEST_CASE("String class", "[string]"){
         REQUIRE((s[0] + "testString").size() == 20);//test sum of string and literal
     }
 
-//    SECTION("Substring function"){
-//        REQUIRE(s[0].substring(0, 5) == "testS");
-//        REQUIRE(s[1].substring(-6, -1) == "tring");
-//        REQUIRE(s[9].substring(0, -3) == "testStri");
-//        REQUIRE(s[9].substring(0, -1) == s[9]);
-//        REQUIRE(s[4].substring(0, 4) == "this");
-//    }
+    SECTION("Substring function"){
+        REQUIRE(s[0].substring(0, 5) == "testS");
+        REQUIRE(s[9].substring(0, -3) == "testStri");
+        REQUIRE(s[9].substring(0, -1) == s[9]);
+        REQUIRE(s[4].substring(0, 4) == "this");
+        REQUIRE(s[0].substring(5, 2) == "");
+        REQUIRE(s[0].substring(0, 100) == "");          //check out of bounds
+        REQUIRE(s[1].substring(-9, -2) == "tringLon");  //negatives are in refrence to the end of the string
 
-//    SECTION("c_str function"){
-//        REQUIRE(strcmp(s[0].c_str(), "testString") == 0);
-//        REQUIRE(strcmp(s[9].c_str(), s[0].c_str()) == 0);
-//        REQUIRE(strcmp(s[2].c_str(), "") == 0);
-//    }
+    }
+
+    SECTION("c_str function"){
+        REQUIRE(strcmp(s[0].c_str(), "testString") == 0);
+        REQUIRE(strcmp(s[9].c_str(), s[0].c_str()) == 0);
+        REQUIRE(strcmp(s[2].c_str(), "") == 0);
+    }
+
+    SECTION("toUpperCase fucntion"){
+        std::cout << s[0].toUpperCase();
+        REQUIRE(s[0].toUpperCase() == "TESTSTRING");
+        REQUIRE(s[4].toUpperCase() == s[3]);
+        REQUIRE(s[2].toUpperCase() == s[2]);
+    }
+
+    SECTION("toLowerCase function"){
+        REQUIRE(s[0].toLowerCase() == "teststring");
+        REQUIRE(s[3].toLowerCase() == s[4]);
+        REQUIRE(s[2].toLowerCase() == s[2]);
+    }
+
+    SECTION("capitalize"){
+        DSString temp(s[0]);
+        temp.capitalize();
+        REQUIRE(temp == "TestString"); //change first char to cap
+        temp = s[3];
+        temp.capitalize();
+        REQUIRE(temp == s[3]);         //do not change a cap letter
+        temp = "";
+        temp.capitalize();
+        REQUIRE(temp == s[2]);         //does nothing to null
+    }
 
 }

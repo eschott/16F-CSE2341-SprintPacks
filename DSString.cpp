@@ -221,13 +221,29 @@ bool DSString::operator> (const char* rhs){
 
 }
 
-char& DSString::operator[] (const int pos){
+///----[] operator----///
+char DSString::operator[] (const int pos){
 
+    if(pos < len && pos > 0)        //if pos is positive and in bounds
+        return str[pos];            //return the char at that pos
 
+    if(pos < 0 && pos + len >= 0)    //if pos is negative and in bounds
+        return str[len + pos];      //return char at pos from end
+
+    else return '\0';
 
 }
 
+///----operator<<----///
 
+//string extraction operator overloading
+std::ostream& operator<< (std::ostream& os, const DSString& st){
+
+    for(int i = 0; i < st.len; i ++)
+        std::cout << st.str[i];
+
+    return os;
+}
 
 ///----get functions----///
 
@@ -238,11 +254,84 @@ int DSString::size(){
 
 }
 
-//DSString DSString::substring(int, int p){
+//prints out all chars between two parameters
+DSString DSString::substring(int s, int f){
 
-//}
+    if(s < 0)
+        s = s + len;
+    if(f < 0)
+        f = f + len + 1;
 
-//char* DSString::c_str(){
+    //asign length to temp and check validity
+    int templen = f - s;
+    if(templen <= 0 || f > len)
+        return DSString();
 
-//}
+    char* temp = new char[templen + 1];     //dynamicaly alocate with room for \0
+    for(int i = 0; i < templen; i++)
+        temp[i] = str[s + i];               //copy str with s offset
+    temp[templen] = '\0';                     //terminate cstr
+
+    return DSString(temp);
+}
+
+//
+char* DSString::c_str(){
+
+    char* temp = new char[len + 1];         //dynamically alocate char* w/ room for \0
+    for(int i = 0; i < len; i ++)
+        temp[i] = str[i];
+    temp[len] = '\0';
+
+    return temp;
+
+}
+
+
+///----changing case----///
+
+//returns the lower case verson of the string
+DSString DSString::toLowerCase(){
+
+    char* temp = new char[len + 1];         //dynamically alocate char* for return string
+
+    for(int i = 0; i < len; i++){
+        if(65 <= str[i] && str[i] <= 90)
+            temp[i] = str[i] + 32;          //change to lower case
+        else
+            temp[i] = str[i];               //is already lower case or other char
+    }
+
+    temp[len] = '\0';                       //add null terminator
+
+    return DSString(temp);
+
+}
+
+DSString DSString::toUpperCase(){
+
+    char* temp = new char[len + 1];         //dynamically alocate char* for return string
+
+    for(int i = 0; i < len; i++){
+        if(97 <= str[i] && str[i] <= 122)
+            temp[i] = str[i] - 32;          //change to lower case
+        else
+            temp[i] = str[i];               //is already lower case or other char
+    }
+
+    temp[len] = '\0';                       //add null terminator
+
+    return DSString(temp);
+
+}
+
+//changes the first letter to a captital one
+DSString& DSString::capitalize(){
+
+    if(97 <= str[0] && str[0] <=122)
+        str[0] -= 32;
+
+    return *this;
+
+}
 
