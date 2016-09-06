@@ -175,9 +175,9 @@ bool DSString::operator> (const DSString& rhs){
 
     //check if either string is empty
     if(str == nullptr)
-        return true;
-    if(rhs.str == nullptr)
         return false;
+    if(rhs.str == nullptr)
+        return true;
 
     //check if chars are equal and sort accordingly
     int i = 0;
@@ -187,9 +187,9 @@ bool DSString::operator> (const DSString& rhs){
 
         //checks if one of the strings has exhausted it's length. Shorter has presidence
         if(i > len && i <= rhs.len)     //lhs == rhs but rhs is longer
-            return true;
-        if(i > rhs.len && i <= len)     //lhs == rhs but lhs is longer
             return false;
+        if(i > rhs.len && i <= len)     //lhs == rhs but lhs is longer
+            return true;
 
         left = str[i];
         right = rhs.str[i];
@@ -198,9 +198,9 @@ bool DSString::operator> (const DSString& rhs){
 
             //checks case if the chars are the same. Upper-case presidence
             if(right < 97 && left  >= 97)       //right is cap, left is lower
-                return false;
-            if(left <  97 && right >= 97)       //left is cap, right is lower
                 return true;
+            if(left <  97 && right >= 97)       //left is cap, right is lower
+                return false;
         }
 
         i++;
@@ -209,9 +209,9 @@ bool DSString::operator> (const DSString& rhs){
 
     //checks alphabatization
     if(left < right)
-        return true;
-    else
         return false;
+    else
+        return true;
 }
 
 //compares string with char* literal and returns bool if sorted

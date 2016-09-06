@@ -3,6 +3,7 @@
 
 #include <cstring>
 #include "DSString.h"
+#include "vector.h"
 #include <iostream>
 
 
@@ -60,13 +61,13 @@ TEST_CASE("String class", "[string]"){
     }
 
     SECTION("Greater than operator"){
-        REQUIRE(s[8] > s[0]);           //"aaa" vs "testString
-        REQUIRE(s[0] > s[1]);           //"testString" vs "testStringLong"
-        REQUIRE(s[3] > s[4]);           //test cap vs non cap
-        REQUIRE(s[2] > s[9]);           //test null vs letters
-        REQUIRE(s[7] > s[0]);           //test more spaces vs fewer
-        REQUIRE(s[8] > "zzz");          //test compare with literal
-        REQUIRE(s[8] > "aaa");          //test length with literal
+        REQUIRE(s[0] > s[8]);           //"testString vs"aaa"
+        REQUIRE(s[1] > s[0]);           //"testStringLong" vs "testString"
+        REQUIRE(s[4] > s[3]);           //test non cap vs cap
+        REQUIRE(s[9] > s[2]);           //test letters vs null
+        REQUIRE(s[0] > s[7]);           //test fewer spaces vs more
+        REQUIRE(!(s[8] > "zzz"));          //test compare with literal
+        REQUIRE(!(s[8] > "aaa"));          //test length with literal
     }
 
     SECTION("[] Operator"){
@@ -128,3 +129,18 @@ TEST_CASE("String class", "[string]"){
     }
 
 }
+
+
+
+//TEST_CASE("Vector class", "[vector]"){
+
+//    Vector v[4];
+//    v[0] = Vector();
+
+//    SECTION("Freebee"){
+//        REQUIRE(true);
+//    }
+
+//    SECTION("")
+
+//}
